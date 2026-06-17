@@ -1,17 +1,24 @@
 const express = require('express');
 const fs = require('fs');
 const { exec } = require("child_process");
-let router = express.Router()
+let router = express.Router();
 const pino = require("pino");
-const {
-    default: makeWASocket,
-    useMultiFileAuthState,
-    delay,
-    makeCacheableSignalKeyStore,
-    Browsers,
-    jidNormalizedUser
-} = require("@whiskeysockets/baileys");
 const { upload } = require('./mega');
+
+// Baileys variables ටික කලින්ම declare කරගන්නවා
+let makeWASocket, useMultiFileAuthState, delay, makeCacheableSignalKeyStore, Browsers, jidNormalizedUser;
+
+// Dynamic import එකක් හරහා Baileys ලෝඩ් කරගන්නවා
+import("@whiskeysockets/baileys").then((baileys) => {
+    makeWASocket = baileys.default;
+    useMultiFileAuthState = baileys.useMultiFileAuthState;
+    delay = baileys.delay;
+    makeCacheableSignalKeyStore = baileys.makeCacheableSignalKeyStore;
+    Browsers = baileys.Browsers;
+    jidNormalizedUser = baileys.jidNormalizedUser;
+}).catch(err => {
+    console.error("Baileys load වෙන්නෙ නැත:", err);
+});
 
 function removeFile(FilePath) {
     if (!fs.existsSync(FilePath)) return false;
