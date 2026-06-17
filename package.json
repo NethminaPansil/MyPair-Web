@@ -9,7 +9,7 @@
      "restart": "pm2 restart prabath"
     },
   "dependencies": {
-    "@whiskeysockets/baileys": "7.0.0",
+    "@whiskeysockets/baileys": "7.0.0-rc13",
     "qrcode": "^1.5.3",
     "awesome-phonenumber": "^7.8.0",
     "pino": "^10.3.1",
